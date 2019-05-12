@@ -1,0 +1,47 @@
+body {
+  overflow-x: hidden;
+  /* background-color: #606060; */
+  background-image: url(../assets/img/background.png);
+  background-size: cover;
+  font-family: Gamer;
+}
+@font-face{
+  font-family: "Gamer";
+  src: url(PressStartReg.woff)
+}
+h1{
+  font-size: 60px;
+}
+.fonte{
+  font-size: 20px;
+}
+.tamanho{
+  font-size: 50px;
+}
+.borda-black {
+  border: 1px solid black !important;
+}
+.borda-azul{
+  border: 1px solid blue !important;
+}
+.borda-preta, {
+  border: 1px solid black !important;
+  background-color: black;
+}
+.planoFundo {
+  background-color: rgba(105,128,153,0.5);
+}
+
+.background-game {
+  /* background: url("../assets/img/predios.jpg"); */
+  /* background-size: 65px; */
+  /* background-size: cover; */
+  /* background-repeat: repeat-x; */
+  /* background: linear-gradient(#191d19, #191d19, #191d19 ,#11cb09 ); */
+
+}
+.muro {
+  background: url("../assets/img/beco.jpg");
+  background-color: black;
+  background-size: cover;
+}
