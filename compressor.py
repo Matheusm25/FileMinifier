@@ -1,23 +1,21 @@
-# trocar as funções, usar o metodo find para pegar a posição exata
-# do que eu estou procurando
-# Caso a variavel seja definida em mais de uma linha
-# vai dar erro
-
-
 def removeInlineComments(file_str):
-    notComment = ""
-    for i in range(1, len(file_str)):
-        if (file_str[i - 1] + file_str[i] == "//"):
-            for j in range(i, len(file_str)):
-                if (file_str[j] == "\n"):
-                    notComment = file_str[0:i - 1]
-                    notComment += file_str[j+1:]
-                    file_str = notComment
-                    break   
+    file_arr = file_str.split("\n")
+    file_return = str()
+
+    for i in range(len(file_arr)):
+        try:
+            if ("//" in file_arr[i]):
+                position = file_arr[i].find("//")
+                if (position != 0):
+                    file_arr[i] = file_arr[i][0:position]
+                else:
+                    file_arr[i] = ""
+        except IndexError:
             break
-    if ("//" in file_str):
-        file_str = removeInlineComments(file_str)
-    return file_str
+    for i in file_arr:
+        if (i != ""):
+            file_return += i + "\n"
+    return file_return 
 
 
 def removeBlockComments(file_str):
@@ -34,10 +32,6 @@ def removeBlockComments(file_str):
     if ("/*" in file_str):
         file_str = removeBlockComments(file_str)
     return file_str
-
-
-def removeEndOfLine(file_str):
-    return file_str.replace("\n", " ")
 
 
 def hasSemicolon(file_line):
@@ -76,9 +70,6 @@ def compress(file):
     output_str = removeInlineComments(input_str)
     output_str = removeBlockComments(output_str)
     output_str = placeSemicolon(output_str)
-    # desnecessaria já que a função de colocar ponto e virgula
-    # já tira as quebras de linha
-    # output_str = removeEndOfLine(output_str)
     
     output_file = open(input_name + ".min." + input_extension, "w")
     output_file.write(output_str)
