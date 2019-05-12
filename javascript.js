@@ -97,9 +97,9 @@ function getVertical(){
 }
 
 function calcPontos(tempoInicial) {
-  var muros = $("#caminho > div").length;
-  var tempoFinal = new Date().getTime();
-  var tempo = tempoFinal - tempoInicial;
+  var muros = $("#caminho > div").length
+  var tempoFinal = new Date().getTime()
+  var tempo = tempoFinal - tempoInicial
   var pontuacao = 50000 - Math.floor((tempo / muros) * 42);
   return pontuacao;
 }

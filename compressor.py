@@ -1,11 +1,8 @@
-# checar as declarações de varivaies
-# tenho que terminar ela com ponto e virgula
-# checar se está sendo declarada mais de uma variavel na mesam linha
-# como vai estar tudo na mesma linha eu posso checar a palavra var
-# e depois checar o valor depois do '=' e após ele colocar ;
-# checar while(espaço) e checar se já tem ponto e virgula
-# checar se a palavra var está realmente iniciando uma variavel
-# e não faz parte de uma palavra normal 
+# trocar as funções, usar o metodo find para pegar a posição exata
+# do que eu estou procurando
+# Caso a variavel seja definida em mais de uma linha
+# vai dar erro
+
 
 def removeInlineComments(file_str):
     notComment = ""
@@ -40,15 +37,28 @@ def removeBlockComments(file_str):
 
 
 def removeEndOfLine(file_str):
-    return file_str.replace("\n", " ");
+    return file_str.replace("\n", " ")
+
+
+def hasSemicolon(file_line):
+    if ("var " in file_line or "let " in file_line or "const " in file_line):
+        if (";" in file_line):
+            return True
+        else:
+            return False
+    return True
+
 
 def placeSemicolon(file_str):
-    file_str_sc = ""
-    for i in range(2, len(file_str)):
-        aux = file_str[i - 2] + file_str[i - 1] + file_str[i]
-        if (aux == "var" or aux == "let"):
-            
+    file_arr = file_str.split("\n")
+    file_return = str()
 
+    for i in range(len(file_arr)):
+        if (not hasSemicolon(file_arr[i])):
+            file_arr[i] += ";"
+    for i in file_arr:
+        file_return += i + " "
+    return file_return
 
 def compress(file):
     #Open the file
@@ -65,7 +75,10 @@ def compress(file):
 
     output_str = removeInlineComments(input_str)
     output_str = removeBlockComments(output_str)
-    output_str = removeEndOfLine(output_str)
-
+    output_str = placeSemicolon(output_str)
+    # desnecessaria já que a função de colocar ponto e virgula
+    # já tira as quebras de linha
+    # output_str = removeEndOfLine(output_str)
+    
     output_file = open(input_name + ".min." + input_extension, "w")
     output_file.write(output_str)
