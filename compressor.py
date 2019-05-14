@@ -43,13 +43,33 @@ def hasSemicolon(file_line):
     return True
 
 
+def isObject(file_line):
+    if ("var " in file_line or "let " in file_line or "const " in file_line):
+        if ("{" in file_line):
+            return True
+    return False
+
+
+def placeSemicolonObject(file_line, semicolon_count):
+    semicolon_count += file_line.count("{")
+    semicolon_count -= file_line.count("}")
+    if (semicolon_count == 0):
+        file_line += ";"
+    return [file_line, semicolon_count]
+
+
 def placeSemicolon(file_str):
+    semicolon_count = 0
     file_arr = file_str.split("\n")
     file_return = str()
 
     for i in range(len(file_arr)):
-        if (not hasSemicolon(file_arr[i])):
+        if (not hasSemicolon(file_arr[i]) and not isObject(file_arr[i])):
             file_arr[i] += ";"
+        elif (isObject(file_arr[i]) or semicolon_count != 0):
+            aux_arr = placeSemicolonObject(file_arr[i], semicolon_count) 
+            file_arr[i] = aux_arr[0]
+            semicolon_count = aux_arr[1] 
     for i in file_arr:
         file_return += i + " "
     return file_return

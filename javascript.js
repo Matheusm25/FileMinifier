@@ -199,3 +199,26 @@ function terminaLore(){
     $("#jogo-conteudo").removeAttr('hidden');
   }, 2000);
 }
+
+
+var objeto = {
+  "nome": "carro",
+  "rodas" : 4
+}
+
+var funcao = function() {
+  console.log("something");
+}
+
+var objetoDentroObjeto = {
+  url: "someSite.jsp",
+  data: {
+    nome: "someone",
+    objeto1: {
+      nome: "something"
+    },
+    objeto2 : {
+      nome: "something2"
+    }
+  }
+}
